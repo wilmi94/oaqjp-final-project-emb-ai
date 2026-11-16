@@ -24,6 +24,17 @@ def emotion_detector(text_to_analyze):
         headers=headers
     )
 
+    # Handle invalid or empty input
+    if response.status_code == 400 or not text_to_analyze.strip():
+        return {
+            "anger": None,
+            "disgust": None,
+            "fear": None,
+            "joy": None,
+            "sadness": None,
+            "dominant_emotion": None
+        }
+
     # Convert JSON response into a Python dictionary
     formatted_response = json.loads(response.text)
 
